@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title"
+      id="modal-title">Remover Produto</h4>
+  <button type="button"
+          class="close"
+          aria-label="Close button"
+          aria-describedby="modal-title"
+          (click)="closeModal(null)">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p>
+    <strong>Você tem certeza que deseja <span class="text-danger">APAGAR</span>
+      <span class="text-primary"> {{ label }}</span></strong>
+  </p>
+  <p>
+    <span class="text-danger">Essa operação é definitiva e irreversível.</span>
+  </p>
+</div>
+<div class="modal-footer d-flex">
+  <button type="button"
+          class="btn btn-outline-secondary btn-rounded"
+          (click)="closeModal(null)">
+    Cancelar
+  </button>
+  <button type="button"
+          ngbAutofocus
+          class="btn btn-danger btn-rounded"
+          (click)="closeModal(true)">
+    Confirmar
+  </button>
+</div>

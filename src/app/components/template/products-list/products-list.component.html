@@ -1,0 +1,76 @@
+<div class="card">
+  <div class="card-header">
+    Lista de Produtos
+    <button class="btn btn btn-primary btn-sm float-right"
+            (click)="addItem()">
+      Adicionar
+    </button>
+  </div>
+  <div class="card-body">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col"
+              sortable="name">Imagem Principal</th>
+          <th scope="col"
+              sortable="name">Nome</th>
+          <th scope="col"
+              sortable="area">Percentual de Lucro</th>
+          <th scope="col"
+              sortable="population">Data de Validade</th>
+          <th scope="col"
+              sortable="population">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of tableData">
+          <td>
+            <img [src]="product.mainImageUrl"
+                 class="mr-2"
+                 style="width: 50px; height: 50px;">
+          </td>
+          <td>
+            <ngb-highlight [result]="product.name"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="product.profitPercentage | percent"></ngb-highlight>
+          </td>
+          <td>
+            <ngb-highlight [result]="bindDate(product.expirationDate) | date: 'dd/MM/yyyy HH:mm'"></ngb-highlight>
+          </td>
+          <td>
+            <p class="m-0 text-muted text-small item-actions text-center">
+              <button class="btn btn-icon bg-transparent"
+                      placement="left"
+                      ngbPopover="Editar"
+                      triggers="mouseenter:mouseleave"
+                      popoverTitle="Editar Produto"
+                      (click)="edit(product)">
+                <i class="ti ti-pencil text-20 text-primary"></i>
+              </button>
+
+              <button class="btn btn-icon bg-transparent"
+                      placement="left"
+                      ngbPopover="Remover"
+                      triggers="mouseenter:mouseleave"
+                      popoverTitle="Remover Produto"
+                      (click)="confirmDelete(product)">
+                <i class="ti ti-trash text-20 text-danger"></i>
+              </button>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="text-center">
+      <button type="button"
+              class="btn btn-primary"
+              (click)="prevPage()"
+              [disabled]="disable_prev || !(pagination_clicked_count>0)">Anterior</button>
+      <button type="button"
+              class="btn btn-primary"
+              (click)="nextPage()"
+              [disabled]="disable_next">Próximo</button>
+    </div>
+  </div>
+</div>

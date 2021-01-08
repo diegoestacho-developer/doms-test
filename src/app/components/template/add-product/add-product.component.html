@@ -1,0 +1,94 @@
+<input style="display: none"
+       type="file"
+       (change)="onFileChanged($event)"
+       #fileInput>
+
+<div class="card">
+  <div class="card-header">
+    Adicionar novo item
+    <button type="button"
+            class="close"
+            aria-label="Close"
+            (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="card-body">
+    <form>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="name">Nome</label>
+          <input type="text"
+                 class="form-control"
+                 [(ngModel)]="product.name"
+                 [ngModelOptions]="{standalone: true}"
+                 placeholder="Digite o nome do produto"
+                 (ngModelChange)="validateNames()">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="productionValue">Custo de produção</label>
+          <input currencyMask
+                 type="text"
+                 class="form-control"
+                 placeholder="0,00"
+                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                 [(ngModel)]="product.productionValue"
+                 [ngModelOptions]="{standalone: true}">
+        </div>
+        <div class="form-group col">
+          <label for="saleValue">Valor de venda</label>
+          <input currencyMask
+                 type="text"
+                 class="form-control"
+                 placeholder="0,00"
+                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                 [(ngModel)]="product.saleValue"
+                 [ngModelOptions]="{standalone: true}"
+                 (ngModelChange)="calculateProfitValue()">
+        </div>
+        <div class="form-group col">
+          <label for="profitValue">Valor de lucro</label>
+          <input currencyMask
+                 type="text"
+                 class="form-control"
+                 placeholder="0,00"
+                 [options]="{ prefix: 'R$ ', thousands: '.', decimal: ',' }"
+                 [(ngModel)]="product.profitValue"
+                 [ngModelOptions]="{standalone: true}">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group col">
+          <label for="description">Descrição</label>
+          <textarea rows="2"
+                    maxlength="500"
+                    class="form-control"
+                    [(ngModel)]="product.description"
+                    [ngModelOptions]="{standalone: true}"
+                    placeholder="Digite a descrição do produto"></textarea>
+        </div>
+      </div>
+      <p>A primeira imagem escolhida, será a imagem principal do produto</p>
+      <div class="form-row"
+           *ngIf="qtdImages > 0">
+        <div class="form-group col">
+          <div class="container">
+            <img *ngFor="let img of product.images"
+                 [src]="img.preview ? img.preview : img.url"
+                 class="img-product">
+          </div>
+        </div>
+      </div>
+      <div class="text-right">
+        <button type="button"
+                class="btn btn-primary"
+                (click)="fileInput.click()">Escolher imagens</button>
+        <button type="submit"
+                class="btn btn-success"
+                (click)="onSubmit()">Submit</button>
+      </div>
+    </form>
+  </div>
+</div>
